@@ -10,10 +10,12 @@ def single_matrix(arr,oper):
 
     try:
         if oper == 1:
-            return np.linalg.det(arr)
+            return np.transpose(arr)
         if oper == 2:
-            return np.linalg.inv(arr)
+            return np.linalg.det(arr)
         if oper == 3:
+            return np.linalg.inv(arr)
+        if oper == 4:
                 return np.linalg.eigvals(arr)
         else:
             return "Error; Invalid operation"
@@ -50,22 +52,24 @@ def master():
         l=np.array(l)
         
         #taking choice of operation as input
-        choice=int(input('''1. Determinant
-2. Inverse
-3. Eigenvalues
+        choice=int(input('''1. Transpose
+2. Determinant
+3. Inverse
+4. Eigenvalues
                      '''))
         print(single_matrix(l,choice))
 
     if nmat==2:
         dim=int(input('Enter the number of rows of the matrices:\n'))
-        l1=[],l2=[]
+        l1=[]
+        l2=[]
         for i in range(dim):
-            st=input(f'Enter {i+1}th the row seperated by commas:\n')
+            st=input(f'Enter {i+1}th the row of the 1st matrix seperated by commas:\n')
             temp = [int(x) for x in st.split(',')]
             l1.append(temp)
         
         for i in range(dim):
-            st=input(f'Enter the {i+1}th row seperated by commas:\n')
+            st=input(f'Enter the {i+1}th row of the 2nd matrix seperated by commas:\n')
             temp = [int(x) for x in st.split(',')]
             l2.append(temp)
         
