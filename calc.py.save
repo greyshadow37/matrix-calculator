@@ -48,3 +48,4 @@ with gr.Blocks() as demo:
         arithmetic_button.click(fn=matrix_arithmetic, inputs=[matrix1_input, matrix2_input, operation_input_2], outputs=arithmetic_output)
 
 demo.launch()
+
