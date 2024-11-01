@@ -48,7 +48,7 @@ def transpose(arr):
 
 # Function to calculate inverse
 def inverse(arr):
-    arr = np.array(arr)
+    arr = np.array(arr, dtype=float)
     try:
         inverse = np.linalg.inv(arr)
         return inverse.tolist()
@@ -58,7 +58,7 @@ def inverse(arr):
 
 # Function to calculate determinant
 def determinant(arr):
-    arr = np.array(arr)
+    arr = np.array(arr, dtype=float)
     try:
         return np.linalg.det(arr)
     except np.linalg.LinAlgError as e:
@@ -67,7 +67,7 @@ def determinant(arr):
 
 # Function to calculate rank of a matrix
 def rank(arr):
-    arr = np.array(arr)
+    arr = np.array(arr, dtype=float)
     try:
         return np.linalg.matrix_rank(arr)
     except np.linalg.LinAlgError as e:
@@ -76,7 +76,7 @@ def rank(arr):
 
 # Function to calculate null space of a matrix
 def nullSpace(arr):
-    arr = np.array(arr)
+    arr = np.array(arr, dtype=float)
     try:
         null_value = null_space(arr)
         return null_value.tolist()
@@ -84,35 +84,15 @@ def nullSpace(arr):
         return f"Error: {e}"    
 
 
-# Function to calculate eigenpairs
-def eigenpairs(arr):
-    arr = np.array(arr)
-    try:
-        eigenvalues, eigenvectors = np.eig(arr)
-        return eigenvalues.tolist(), eigenvectors.tolist()
-    except np.linalg.LinAlgError as e:
-        return f"Error: {e}"
-
-
 # Function to calculate LU decomposition
 def LU(arr):
-    arr = np.array(arr)
+    arr = np.array(arr, dtype=float)
     try:
         P, L, U = lu(arr)
         return P.tolist(), L.tolist(), U.tolist()
     except LAerror as e:
         return f"Error: {e}"
 
-
-# Function to calculate the singular value decomposition    
-def SVD(arr):
-    arr = np.array(arr)
-    try:
-        U, S, V = np.svd(arr)
-        return U.tolist(), S.tolist(), V.tolist()
-    except np.linalg.LinAlgError as e:
-        return f"Error: {e}"
- 
 
 '''Gradio Interface to take input and show output'''
 
@@ -139,15 +119,15 @@ with gr.Blocks() as demo:
 
     # For Inverse
     with gr.Tab("Inverse"):
-        input = gr.DataFrame(headers=None, row_count=3, col_count=3, label= "Enter matrix")
-        output = gr.DataFrame(headers=None, label="Output Matrix")
+        input = gr.Dataframe(headers=None, row_count=3, col_count=3, label= "Enter matrix")
+        output = gr.Dataframe(headers=None, label="Output Matrix")
         button = gr.Button("Calculate")
         button.click(fn=inverse, inputs=[input], outputs=output)
 
 
     # For Determinant
     with gr.Tab("Determinant"):
-        input = gr.DataFrame(headers=None, row_count=3, col_count=3, label= "Enter matrix")
+        input = gr.Dataframe(headers=None, row_count=3, col_count=3, label= "Enter matrix")
         output = gr.Number(label="Determinant Value")
         button = gr.Button("Calculate")
         button.click(fn=determinant, inputs=[input], outputs=output)
@@ -155,7 +135,7 @@ with gr.Blocks() as demo:
     
     # For Rank
     with gr.Tab("Rank"):
-        input = gr.DataFrame(headers=None, row_count=3, col_count=3, label= "Enter matrix")
+        input = gr.Dataframe(headers=None, row_count=3, col_count=3, label= "Enter matrix")
         output = gr.Number(label="Rank Value")
         button = gr.Button("Calculate")
         button.click(fn=rank, inputs=[input], outputs=output)
@@ -163,38 +143,19 @@ with gr.Blocks() as demo:
 
     # For Null Space
     with gr.Tab("Null Space"):
-        input = gr.DataFrame(headers=None, row_count=3, col_count=3, label= "Enter matrix")
-        output = gr.DataFrame(headers=None, label="Output Matrix")
+        input = gr.Dataframe(headers=None, row_count=3, col_count=3, label= "Enter matrix")
+        output = gr.Dataframe(headers=None, label="Output Matrix")
         button = gr.Button("Calculate")
         button.click(fn=nullSpace, inputs=[input], outputs=output)
 
 
-    # For Eigenvalues and Eigenvectors
-    with gr.Tab("Eigenvalues and Eigenvectors"):
-        input = gr.DataFrame(headers=None, row_count=3, col_count=3, label="Enter matrix")
-        output_value = gr.DataFrame(headers=None, label="Eigenvalues")
-        output_matrix = gr.DataFrame(headers=None, label= "Eigenvectors")
-        button = gr.Button("Calculate")
-        button.click(fn=eigenpairs, inputs=input, outputs= [output_value,output_matrix])
-
-
     # For LU Decomposition
     with gr.Tab("LU Decomposition"):
-        input = gr.DataFrame(headers=None, row_count=3, col_count=3, label= "Enter matrix")
-        output1 = gr.DataFrame(headers=None, label="Permutation Matrix")
-        output2 = gr.DataFrame(headers=None, label="Lower Matrix")
-        output3 = gr.DataFrame(headers=None, label="Upper Matrix")
+        input = gr.Dataframe(headers=None, row_count=3, col_count=3, label= "Enter matrix")
+        output1 = gr.Dataframe(headers=None, label="Permutation Matrix")
+        output2 = gr.Dataframe(headers=None, label="Lower Matrix")
+        output3 = gr.Dataframe(headers=None, label="Upper Matrix")
         button = gr.Button("Calculate")
         button.click(fn=LU, inputs=[input], outputs=[output1,output2,output3])
-
-
-    # For SVD
-    with gr.Tab("Singular Value Decomposition"):
-        input = gr.DataFrame(headers=None, row_count=3, col_count=3, label= "Enter matrix")
-        output1 = gr.DataFrame(headers=None, label="U")
-        output2 = gr.DataFrame(headers=None, label="Sigma")
-        output3 = gr.DataFrame(headers=None, label="VT")
-        button = gr.Button("Calculate")
-        button.click(fn=SVD, inputs=[input], outputs=[output1,output2,output3])
 
 demo.launch()

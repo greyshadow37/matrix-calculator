@@ -2,7 +2,7 @@
 
 A Standard Calculator which can perform all the standard Matrix Operations and Transformations found in most Linear Algebra textbooks.
 
-These include -
+It currently supports -
 1) Matrix Arithmetic
  - Matrix Addition
  - Matrix Subtraction
@@ -12,12 +12,7 @@ These include -
 4) Determinant
 5) Rank 
 6) Null Space
-7) Eigenpairs
- - Eigenvalues
- - Eigenvectors
-8) LU Decomposition
-9) Singular Value Decomposition
-
+7) LU Decomposition
 
 ## Technologies used:
 1) numpy version: 1.26.4
