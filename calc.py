@@ -7,7 +7,7 @@ def matrix_dim(arr1, arr2):
 
 # Function for transpose
 def transpose(arr):
-    arr = np.array(arr)
+    arr = np.array(arr, dtype = float)
     try:
         return np.transpose(arr)
     except np.linalg.LinAlgError as e:
