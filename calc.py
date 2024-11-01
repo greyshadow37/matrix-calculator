@@ -20,19 +20,17 @@ def matrix_arithmetic(arr1, arr2, oper):
     arr1 = np.array(arr1, dtype=float)
     arr2 = np.array(arr2, dtype=float)
 
-    print("Matrix 1 shape:", arr1.shape)  
-    print("Matrix 2 shape:", arr2.shape)  
-
     if oper == "Multiplication":
         if arr1.shape[1] == arr2.shape[0]:  
-            return np.matmul(arr1, arr2)
+            return np.matmul(arr1, arr2).tolist()
         else:
             return "Error: Incompatible dimensions for multiplication"
+
     elif matrix_dim(arr1, arr2):
         if oper == "Addition":
-            return np.add(arr1, arr2)
+            return np.add(arr1, arr2).tolist()
         elif oper == "Subtraction":
-            return np.subtract(arr1, arr2)
+            return np.subtract(arr1, arr2).tolist()
         else:
             return "Error: Invalid operation"
     else:
