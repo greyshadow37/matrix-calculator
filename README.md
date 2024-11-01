@@ -17,7 +17,7 @@ It currently supports -
 ## Technologies used:
 1) numpy version: 1.26.4
 2) scipy version: 1.12.0
-2) gradio version: 4.41.0 '
+2) gradio version: 4.41.0 
 
 
 ## About Me
