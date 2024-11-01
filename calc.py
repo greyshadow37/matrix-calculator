@@ -43,44 +43,47 @@ def matrix_arithmetic(arr1, arr2, oper):
 def transpose(arr):
     arr = np.array(arr, dtype = float)
     try:
-        return np.transpose(arr)
+        transpose = np.transpose(arr)
+        return transpose.tolist()
     except np.linalg.LinAlgError as e:
         return f"Error: {e}"
 
-
+# Function to calculate inverse
 def inverse(arr):
     arr = np.array(arr)
     try:
-        return np.linalg.inv(arr)
+        inverse = np.linalg.inv(arr)
+        return inverse.tolist()
     except np.linalg.LinAlgError as e:
-        raise f"Error: {e}"
-
-
-# Function to calculate rank of a matrix
-def rank(arr):
-    arr = np.array(arr)
-    try:
-        return np.matrix_rank(arr)
-    except np.linalg.LinAlgError as e:
-        raise f"Error: {e}"
-
-
-# Function to calculate null space of a matrix
-def nullSpace(arr):
-    arr = np.array(arr)
-    try:
-        return null_space(arr)
-    except LAerror as e:
-        raise f"Error: {e}"    
+        return f"Error: {e}"
 
 
 # Function to calculate determinant
 def determinant(arr):
     arr = np.array(arr)
     try:
-        np.linalg.det(arr)
+        return np.linalg.det(arr)
     except np.linalg.LinAlgError as e:
-        raise f"Error: {e}"
+        return f"Error: {e}"
+
+
+# Function to calculate rank of a matrix
+def rank(arr):
+    arr = np.array(arr)
+    try:
+        return np.linalg.matrix_rank(arr)
+    except np.linalg.LinAlgError as e:
+        return f"Error: {e}"
+
+
+# Function to calculate null space of a matrix
+def nullSpace(arr):
+    arr = np.array(arr)
+    try:
+        null_value = null_space(arr)
+        return null_value.tolist()
+    except LAerror as e:
+        return f"Error: {e}"    
 
 
 # Function to calculate eigenpairs
@@ -88,9 +91,9 @@ def eigenpairs(arr):
     arr = np.array(arr)
     try:
         eigenvalues, eigenvectors = np.eig(arr)
-        return eigenvalues, eigenvalues
+        return eigenvalues.tolist(), eigenvectors.tolist()
     except np.linalg.LinAlgError as e:
-        raise f"Error: {e}"
+        return f"Error: {e}"
 
 
 # Function to calculate LU decomposition
@@ -98,9 +101,9 @@ def LU(arr):
     arr = np.array(arr)
     try:
         P, L, U = lu(arr)
-        return P, L, U
+        return P.tolist(), L.tolist(), U.tolist()
     except LAerror as e:
-        raise f"Error: {e}"
+        return f"Error: {e}"
 
 
 # Function to calculate the singular value decomposition    
@@ -108,9 +111,9 @@ def SVD(arr):
     arr = np.array(arr)
     try:
         U, S, V = np.svd(arr)
-        return U, S, V
+        return U.tolist(), S.tolist(), V.tolist()
     except np.linalg.LinAlgError as e:
-        raise f"Error: {e}"
+        return f"Error: {e}"
  
 
 '''Gradio Interface to take input and show output'''
@@ -171,7 +174,7 @@ with gr.Blocks() as demo:
     # For Eigenvalues and Eigenvectors
     with gr.Tab("Eigenvalues and Eigenvectors"):
         input = gr.DataFrame(headers=None, row_count=3, col_count=3, label="Enter matrix")
-        output_value = gr.Number(label="Eigenvalues")
+        output_value = gr.DataFrame(headers=None, label="Eigenvalues")
         output_matrix = gr.DataFrame(headers=None, label= "Eigenvectors")
         button = gr.Button("Calculate")
         button.click(fn=eigenpairs, inputs=input, outputs= [output_value,output_matrix])
