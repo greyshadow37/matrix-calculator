@@ -15,11 +15,3 @@ It currently supports -
 7) Eigenvalues
 8) LU Decomposition
 9) Singular Value Decomposition
-
-
-## Requirments:
-1) numpy version:  2.1.3
-2) scipy version:  1.14.1 
-3) sympy version: 1.13.3 
-4) pandas version:  2.2.3 
-5) streamlit version:  1.42.1 
