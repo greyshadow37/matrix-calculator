@@ -12,14 +12,14 @@ It currently supports -
 4) Determinant
 5) Rank 
 6) Null Space
-7) LU Decomposition
-
-## Technologies used:
-1) numpy version: 1.26.4
-2) scipy version: 1.12.0
-2) gradio version: 4.41.0 
+7) Eigenvalues
+8) LU Decomposition
+9) Singular Value Decomposition
 
 
-## About Me
-- LinkedIn : https://www.linkedin.com/in/udayaditya-sankar-das-860424299/
-- GitHub : https://github.com/greyshadow37
+## Required Packages:
+1) numpy version:  2.1.3
+2) scipy version:  1.14.1 
+3) sympy version: 1.13.3 
+4) pandas version:  2.2.3 
+5) streamlit version:  1.42.1 
