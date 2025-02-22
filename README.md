@@ -17,7 +17,7 @@ It currently supports -
 9) Singular Value Decomposition
 
 
-## Required Packages:
+## Requirments:
 1) numpy version:  2.1.3
 2) scipy version:  1.14.1 
 3) sympy version: 1.13.3 

@@ -97,17 +97,17 @@ def LU(arr):
         sympy_matrix = Matrix(arr)
         L, U, _ = sympy_matrix.LUdecomposition()  
         return L.tolist(), U.tolist()
-    except LAerror as e:
-        return f"Error: {e}"
-
+    except Exception as e:
+        return f"Error: {e}", None
+    
 # Function to calculate Singular Value Decomposition
 def SVD(arr):
     arr = np.array(arr, dtype=float)
     try:
         U, s, Vh = np.linalg.svd(arr)
         return U.tolist(), s.tolist(), Vh.tolist()
-    except LAerror as e:
-        return f"Error: {e}"
+    except Exception as e:  
+        return f"Error: {e}", None, None
 
 
 
@@ -182,26 +182,42 @@ with tab6:
 with tab7:
     st.subheader("Eigenvalues")
     matrix = st.data_editor(default_matrix, key="matrix_eigenvalues")
-    result = eigen(matrix.to_numpy())
+    eigenvals = eigen(matrix.to_numpy())
     st.subheader("Result:")
-    st.write(result)
+    if isinstance(eigenvals, str):
+        st.error(eigenvals)
+    else:
+        eigenvals_df = pd.DataFrame(eigenvals, columns=["Eigenvalue"])
+        st.dataframe(eigenvals_df)
 
 with tab8:
     st.subheader("LU Decomposition")
-    matrix = st.data_editor(default_matrix, key="matrix_lu")
-    L, U = LU(matrix.to_numpy())
-    st.subheader("L Matrix:")
-    st.dataframe(pd.DataFrame(L))
-    st.subheader("U Matrix:")
-    st.dataframe(pd.DataFrame(U))
+    matrix = st.data_editor(default_matrix, key="matrix_lu")  
+    try:
+        L, U = LU(matrix.to_numpy())
+        if isinstance(L, str):  
+            st.error(L)
+        else:
+            st.subheader("L Matrix:")
+            st.dataframe(pd.DataFrame(L))
+            st.subheader("U Matrix:")
+            st.dataframe(pd.DataFrame(U))
+    except Exception as e:
+        st.error(f"Unexpected Error: {e}")
 
 with tab9:
     st.subheader("Singular Value Decomposition (SVD)")
     matrix = st.data_editor(default_matrix, key="matrix_svd")
-    U, s, Vh = SVD(matrix.to_numpy())
-    st.subheader("U Matrix:")
-    st.dataframe(pd.DataFrame(U))
-    st.subheader("Singular Values:")
-    st.write(s)
-    st.subheader("Vh Matrix:")
-    st.dataframe(pd.DataFrame(Vh))
+    try:
+        U, s, Vh = SVD(matrix.to_numpy())
+        if isinstance(U, str):  
+            st.error(U)
+        else:
+            st.subheader("U Matrix:")
+            st.dataframe(pd.DataFrame(U))
+            st.subheader("Singular Values:")
+            st.write(s)
+            st.subheader("Vh Matrix:")
+            st.dataframe(pd.DataFrame(Vh))
+    except Exception as e:
+        st.error(f"Unexpected Error: {e}")
